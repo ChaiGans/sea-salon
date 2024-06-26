@@ -7,7 +7,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 interface Review {
   name: string;
@@ -24,12 +25,20 @@ export function ReviewPopOver({ addReview }: ReviewPopOverProps) {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("Cool. Love this place!");
 
+  const popoverCloseRef = useRef<HTMLButtonElement>(null);
+
   const handleSubmit = () => {
-    const newReview = { name, rating: Number(rating), comment };
+    const reviewName = name.trim() === "" ? "Anonymous" : name;
+    const newReview = { name: reviewName, rating: Number(rating), comment };
     addReview(newReview);
+
     setName("John Doe");
     setRating(5);
     setComment("Cool. Love this place!");
+
+    if (popoverCloseRef.current) {
+      popoverCloseRef.current.click();
+    }
   };
 
   return (
@@ -50,7 +59,7 @@ export function ReviewPopOver({ addReview }: ReviewPopOverProps) {
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
-                defaultValue="John Doe"
+                value={name}
                 className="col-span-2 h-8"
                 onChange={(e) => setName(e.target.value)}
               />
@@ -59,7 +68,9 @@ export function ReviewPopOver({ addReview }: ReviewPopOverProps) {
               <Label htmlFor="rating">Rating (1-5)</Label>
               <Input
                 id="rating"
-                defaultValue="5"
+                value={rating}
+                min={1}
+                max={5}
                 className="col-span-2 h-8"
                 onChange={(e) => setRating(Number(e.target.value))}
               />
@@ -68,7 +79,7 @@ export function ReviewPopOver({ addReview }: ReviewPopOverProps) {
               <Label htmlFor="comment">Comment</Label>
               <Input
                 id="comment"
-                defaultValue="Cool. Love this place !"
+                value={comment}
                 className="col-span-2 h-8"
                 onChange={(e) => setComment(e.target.value)}
               />
@@ -82,6 +93,11 @@ export function ReviewPopOver({ addReview }: ReviewPopOverProps) {
             >
               Submit
             </Button>
+            <PopoverClose asChild>
+              <button ref={popoverCloseRef} className="hidden">
+                Close
+              </button>
+            </PopoverClose>
           </div>
         </div>
       </PopoverContent>

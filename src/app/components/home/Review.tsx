@@ -41,10 +41,12 @@ const Review = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    toast({
-      title: "Review updated",
-      description: "Thanks for the review. Love you. -SEA Salon-",
-    });
+    if (testimonials.length > 3) {
+      toast({
+        title: "Review updated",
+        description: "Thanks for the review. Love you. -SEA Salon-",
+      });
+    }
   }, [testimonials]);
 
   const addReview = (review: Review) => {

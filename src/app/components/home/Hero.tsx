@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { FaPhoneAlt } from "react-icons/fa";
 
 const Hero = () => {
   return (
@@ -16,12 +18,24 @@ const Hero = () => {
         special occasion or simply seeking a moment of relaxation, SEA Salon is
         your go-to destination for an unparalleled beauty experience.
       </p>
-      <Button variant="destructive" className="mt-4">
-        Reserve now
-      </Button>
+
+      <Link href="/reservations">
+        <Button variant="destructive" className="mt-4">
+          Reserve now
+        </Button>
+      </Link>
+
       <label className="mt-4 font-poppinsregular text-xs text-center">
         Haircuts and Styling | Manicure and Predicure | Facial Treatments
       </label>
+      <div className="flex flex-col space-y-1 justify-center items-center mt-12">
+        <div className="flex flex-row space-x-2 font-poppinslight text-xs">
+          <FaPhoneAlt className="mt-1" /> <label>08123456789 (Thomas)</label>
+        </div>
+        <div className="flex flex-row space-x-2 font-poppinslight text-xs">
+          <FaPhoneAlt className="mt-1" /> <label>08164829372 (Sekar)</label>
+        </div>
+      </div>
     </header>
   );
 };
