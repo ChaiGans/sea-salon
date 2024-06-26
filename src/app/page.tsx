@@ -1,11 +1,14 @@
 import Image from "next/image";
+import Hero from "./components/home/Hero";
+import Contact from "./components/home/Contact";
+import Review from "./components/home/Review";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <p className="text-white font-poppinsbold">Ini poppins bold</p>
-      <p className="text-white font-poppinssb">Ini poppins semibold</p>
-      <p className="text-white">Ini b aja</p>
+    <main className="flex min-h-screen flex-col justify-center text-center items-center">
+      <Hero />
+      <Review />
+      <Contact />
     </main>
   );
 }
