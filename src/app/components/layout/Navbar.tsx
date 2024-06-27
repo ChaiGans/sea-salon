@@ -1,23 +1,34 @@
-"use client";
-
-import { useState } from "react";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
-
-const Navbar = () => {
-  const [role, setRole] = useState("USER");
+import ClientNavbar from "../home/ClientNavbar";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import { ExtendedSession } from "@/app/api/auth/[...nextauth]/options";
+const Navbar = async () => {
+  const session = (await getServerSession(options)) as ExtendedSession;
 
   return (
     <>
-      {role === "ADMIN" ? (
-        <nav className="flex justify-between items-center bg-custom-purple-1 h-14 font-poppinssb px-4">
-          <Link href="/">Sea Salon</Link>
-          <Link href="/dashboard">Dashboard</Link>
-        </nav>
-      ) : (
-        <nav className="flex justify-center items-center bg-custom-purple-1 h-14 font-poppinssb">
-          <Link href="/">Sea Salon</Link>
-        </nav>
-      )}
+      <nav className="flex justify-between items-center bg-custom-purple-1 h-14 font-poppinssb px-4">
+        <Link href="/">Sea Salon</Link>
+        <div className="flex flex-row items-center space-x-4">
+          {session ? (
+            <>
+              {session.user.role === "admin" && (
+                <Link href="/dashboard">Dashboard</Link>
+              )}
+              {session.user.role === "user" && (
+                <Link href="/reservations">Reservations</Link>
+              )}
+              <ClientNavbar />
+            </>
+          ) : (
+            <>
+              <Link href="/signup">Sign Up</Link>
+              <Link href="/signin">Login</Link>
+            </>
+          )}
+        </div>
+      </nav>
     </>
   );
 };
