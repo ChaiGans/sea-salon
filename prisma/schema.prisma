@@ -14,17 +14,52 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   full_name    String
-  email        String   @unique
-  phone_number String   @unique
+  email        String        @unique
+  phone_number String        @unique
   password     String
   role         Role
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now()) @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  Reservation  Reservation[]
+}
+
+model Review {
+  id            Int    @id @default(autoincrement())
+  customer_name String
+  rating        Int
+  comment       String
+}
+
+model Reservation {
+  id         Int      @id @default(autoincrement())
+  customer   User     @relation(fields: [customerId], references: [id])
+  customerId Int
+  branch     Branch   @relation(fields: [branchId], references: [id])
+  branchId   Int
+  service    Service
+  time       DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+}
+
+model Branch {
+  id              Int           @id @default(autoincrement())
+  branch_name     String
+  branch_location String
+  opening_time    DateTime      @db.Time()
+  closing_time    DateTime      @db.Time()
+  Reservation     Reservation[]
 }
 
 enum Role {
   CUSTOMER
   ADMIN
+}
+
+enum Service {
+  HAIRCUT
+  MANICURE
+  FACIAL
 }

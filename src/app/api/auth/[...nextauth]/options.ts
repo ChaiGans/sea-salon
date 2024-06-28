@@ -29,7 +29,10 @@ export const options: NextAuthOptions = {
         console.log("Profile github : ", profile);
 
         let userRole = "Github User";
-        if (profile?.email === ("elbertchailes888@gmail.com" || "thomas.n@compfest.id")) {
+        if (
+          profile?.email ===
+          ("elbertchailes888@gmail.com" || "thomas.n@compfest.id")
+        ) {
           userRole = "admin";
         }
 
@@ -99,4 +102,5 @@ export const options: NextAuthOptions = {
   pages: {
     signIn: "/signin",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
