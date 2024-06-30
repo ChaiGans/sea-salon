@@ -109,7 +109,7 @@ const SignIn = () => {
         >
           Login
         </Button>
-        <hr className="text-gray-400 mt-4 w-3/4 mb-4" />
+        {/* <hr className="text-gray-400 mt-4 w-3/4 mb-4" />
         <div className="w-full flex justify-center">
           <Button
             variant={"outline"}
@@ -125,7 +125,7 @@ const SignIn = () => {
               className="ml-3"
             ></Image>
           </Button>
-        </div>
+        </div> */}
       </div>
     </form>
   );
