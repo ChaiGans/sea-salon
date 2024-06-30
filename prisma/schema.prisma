@@ -33,33 +33,42 @@ model Review {
 }
 
 model Reservation {
-  id         Int      @id @default(autoincrement())
-  customer   User     @relation(fields: [customerId], references: [id])
-  customerId Int
-  branch     Branch   @relation(fields: [branchId], references: [id])
-  branchId   Int
-  service    Service
-  time       DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
+  id                Int             @id @default(autoincrement())
+  customer          User            @relation(fields: [customerId], references: [id])
+  customerId        Int
+  serviceOnBranch   ServiceOnBranch @relation(fields: [serviceOnBranchId], references: [id])
+  serviceOnBranchId Int
+  time              DateTime
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @default(now()) @updatedAt
 }
 
 model Branch {
-  id              Int           @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   branch_name     String
   branch_location String
-  opening_time    DateTime      @db.Time()
-  closing_time    DateTime      @db.Time()
-  Reservation     Reservation[]
+  opening_time    DateTime          @db.Time()
+  closing_time    DateTime          @db.Time()
+  services        ServiceOnBranch[]
+}
+
+model Service {
+  id           Int               @id @default(autoincrement())
+  service_name String            @unique
+  branches     ServiceOnBranch[]
+}
+
+model ServiceOnBranch {
+  id          Int           @id @default(autoincrement())
+  branchId    Int
+  serviceId   Int
+  minutes     Int
+  Branch      Branch        @relation(fields: [branchId], references: [id])
+  Service     Service       @relation(fields: [serviceId], references: [id])
+  Reservation Reservation[]
 }
 
 enum Role {
   CUSTOMER
   ADMIN
-}
-
-enum Service {
-  HAIRCUT
-  MANICURE
-  FACIAL
 }
