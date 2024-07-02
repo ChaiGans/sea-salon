@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 export async function GET(request: NextRequest) {
   try {
     const cid = request.nextUrl.searchParams.get("customerId");
-    console.log(cid);
 
     const existingReservations = await db.reservation.findMany({
       where: {
@@ -13,7 +12,17 @@ export async function GET(request: NextRequest) {
       include: {
         serviceOnBranch: {
           include: {
-            Service: true,
+            Service: {
+              select: {
+                service_name: true,
+              },
+            },
+            Branch: {
+              select: {
+                branch_name: true,
+                branch_location: true,
+              },
+            },
           },
         },
       },

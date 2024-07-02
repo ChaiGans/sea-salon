@@ -67,6 +67,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const isExistedReservation = await db.reservation.findFirst({
+      where: {
+        customerId,
+        serviceOnBranchId,
+        time: startingTime,
+      },
+    });
+
+    if (isExistedReservation) {
+      return NextResponse.json(
+        {
+          message:
+            "The time of that service in that branch is already reserved",
+        },
+        { status: 400 }
+      );
+    }
+
     const newReservation = await db.reservation.create({
       data: {
         customerId,
