@@ -31,7 +31,9 @@ export const Dashboard = () => {
       if (!isoString) return "N/A";
 
       const date = new Date(isoString);
-      const hours = date.getHours().toString().padStart(2, "0");
+      const hours = ((date.getHours() - 7 + 24) % 24)
+        .toString()
+        .padStart(2, "0");
       const minutes = date.getMinutes().toString().padStart(2, "0");
 
       return `${hours}:${minutes}`;
