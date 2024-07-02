@@ -43,13 +43,11 @@ export const Dashboard = () => {
         throw new Error("Network response was not ok");
       }
       const json = await response.json();
-      console.log(json.branches);
       const formattedBranches = json.branches.map((branch: any) => ({
         ...branch,
         open_time: extractTimeFromISO(branch.opening_time),
         close_time: extractTimeFromISO(branch.closing_time),
       }));
-      console.log(formattedBranches);
       setBranches(formattedBranches);
     } catch (error) {
       console.error("Failed to fetch data:", error);

@@ -8,7 +8,6 @@ import ReviewCard from "./ReviewCard";
 import Autoplay from "embla-carousel-autoplay";
 import { useState, useEffect } from "react";
 import { ReviewPopOver } from "./ReviewPopOver";
-import { useToast } from "@/components/ui/use-toast";
 
 interface Review {
   customer_name: string;
@@ -26,15 +25,12 @@ const Review = () => {
         throw new Error("Network response was not ok");
       }
       const json = await response.json();
-      console.log(json.reviews);
 
       setTestimonials(json.reviews as Review[]);
     } catch (error) {
       console.error("Failed to fetch data:", error);
     }
   };
-
-  const { toast } = useToast();
 
   useEffect(() => {
     fetchData();
