@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">SEA Salon Management System</h1>
 
-## Getting Started
+![GitHub last commit](https://img.shields.io/github/last-commit/ChaiGans/sea-salon)
 
-First, run the development server:
+# Description
+SEA Salon is a web application designed to facilitate online reservations between customers and SEA Salon. The platform allows administrators to manage salon branches without hardcoding, and enables customers to make service reservations online, thus eliminating the need to wait in line at the salon and making the waiting process virtual.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Tech Stack
+The following technologies are used in the development of the SEA Salon website:
+- **Next.js** - A React framework for production.
+- **TailwindCSS** - A utility-first CSS framework for rapid UI development.
+- **Aiven** - Cloud database service for hosting the PostgreSQL database.
+- **PostgreSQL** - Open-source relational database.
+- **Prisma ORM** - Object-relational mapping tool to facilitate database interactions.
+- **NextAuth.js** - Authentication library for Next.js applications.
+
+# Credentials
+To interact with the SEA Salon system, use the following credentials:
+
+### Admin Access
+- **Email:** thomas.n@compfest.id
+- **Password:** Admin123
+
+### Customer Access
+- **Email:** Akunbaru@gmail.com
+- **Password:** Akunbaru
+
+### Create New Account
+- Users can register their own accounts via the website. Note that new admin accounts can only be added by manually inserting records into the database.
+
+# Environment Setup
+To run the SEA Salon locally or in your own deployment, configure your environment variables as follows:
+```shell
+DATABASE_URL="postgres://avnadmin:AVNS_ugbFwXAOdod2iXQ9NWI@sea-salon-sea-salon-01.g.aivencloud.com:27793/defaultdb?sslmode=require"
+NEXTAUTH_SECRET=ZT9WC79g4OFkXy590UJ67IZ7eNd17djRH+R5rHve8KE="
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Accessing the Deployed Application
+The SEA Salon is deployed and accessible at: [SEA Salon Website](https://sea-salon-n75z-qrrig5khw-chaigans-projects.vercel.app/), hosted on Vercel.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Installation 
+Follow these steps:
+1. Clone this repository :
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```shell
+git clone https://github.com/ChaiGans/sea-salon.git
+```
 
-## Learn More
+2. Navigate to the src directory of the program by running the following command in the terminal:
 
-To learn more about Next.js, take a look at the following resources:
+```shell
+cd sea-salon
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Install the required packages:
+```shell
+npm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. Set up your Prisma database:
+```shell
+npx prisma migrate dev
+```
+5. Start the development server:
+```shell
+npm run dev
+```
+The application should now be running at http://localhost:3000.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Adding an Admin User
+To add an admin user to the system:
+1. Access the database using your preferred PostgreSQL client.
+2. Insert a new record into the users table with the role set to 'admin'. Ensure the password is securely hashed (e.g., using bcrypt).
