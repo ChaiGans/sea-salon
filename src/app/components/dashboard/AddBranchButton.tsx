@@ -183,21 +183,19 @@ const AddBranchButton: React.FC<Props> = ({ onPost }) => {
           />
           <Label htmlFor="openingTime">Opening Time</Label>
           <div className="w-fit rounded-md border border-slate-200 bg-white px-3 py-2 text-sm">
-            <TimePicker
-              onChange={(value) => setOpenTime(value as any)}
-              value={openTime}
-              disableClock={true}
-              clearIcon={null}
+            <input
+              onChange={(event) => setOpenTime(event.target.value)}
+              aria-label="Time"
+              type="time"
             />
           </div>
 
           <Label htmlFor="closeTime">Close Time</Label>
           <div className="w-fit rounded-md border border-slate-200 bg-white px-3 py-2 text-sm">
-            <TimePicker
-              onChange={(value) => setCloseTime(value as any)}
-              value={closeTime}
-              disableClock={true}
-              clearIcon={null}
+            <input
+              onChange={(event) => setCloseTime(event.target.value)}
+              aria-label="Time"
+              type="time"
             />
           </div>
           <Label htmlFor="service">Service options</Label>
