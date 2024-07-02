@@ -36,7 +36,7 @@ NEXTAUTH_SECRET=ZT9WC79g4OFkXy590UJ67IZ7eNd17djRH+R5rHve8KE="
 ```
 
 # Accessing the Deployed Application
-The SEA Salon is deployed and accessible at: [SEA Salon Website](https://sea-salon-n75z-qrrig5khw-chaigans-projects.vercel.app/), hosted on Vercel.
+The SEA Salon is deployed and accessible at: [SEA Salon Website](https://sea-salon-chai.vercel.app/), hosted on Vercel.
 
 # Installation 
 Follow these steps:
