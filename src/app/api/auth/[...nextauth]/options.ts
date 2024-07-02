@@ -8,6 +8,7 @@ import { compare } from "bcrypt";
 
 // Extend the User type to include the role
 interface ExtendedUser extends User {
+  id: string;
   role: string; // Assume role is mandatory for all users
 }
 
@@ -22,27 +23,27 @@ export const options: NextAuthOptions = {
     strategy: "jwt",
   },
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID || "",
-      clientSecret: process.env.GITHUB_SECRET || "",
-      profile(profile: any) {
-        console.log("Profile github : ", profile);
+    // GithubProvider({
+    //   clientId: process.env.GITHUB_ID || "",
+    //   clientSecret: process.env.GITHUB_SECRET || "",
+    //   profile(profile: any) {
+    //     console.log("Profile github : ", profile);
 
-        let userRole = "Github User";
-        if (
-          profile?.email ===
-          ("elbertchailes888@gmail.com" || "thomas.n@compfest.id")
-        ) {
-          userRole = "admin";
-        }
+    //     let userRole = "Github User";
+    //     if (
+    //       profile?.email ===
+    //       ("elbertchailes888@gmail.com" || "thomas.n@compfest.id")
+    //     ) {
+    //       userRole = "admin";
+    //     }
 
-        return {
-          id: String(profile.id),
-          ...profile,
-          role: userRole,
-        } as ExtendedUser;
-      },
-    }),
+    //     return {
+    //       id: String(profile.id),
+    //       ...profile,
+    //       role: userRole,
+    //     } as ExtendedUser;
+    //   },
+    // }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -86,15 +87,19 @@ export const options: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }: { token: any; user: any }) {
+      // await console.log("User print", user);
       if (user) {
+        token.id = user.id;
         token.role = user.role;
       }
+      // await console.log("Token print", token);
       return token;
     },
     async session({ session, token }: { session: any; token: any }) {
-      if (session?.user as ExtendedUser) {
+      if (token.id) {
+        session.user.id = token.id;
         session.user.role = token.role;
-        return session as ExtendedSession;
+        // return session as ExtendedSession;
       }
       return session as ExtendedSession;
     },
